@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="world.keyi.mapper.UserMapper">
+
+
+
+    <select id="getUserListByIds" resultMap="world.keyi.mapper.DeptMapper.user">
+        select u.user_id,u.nick_name,u.avatar,u.sex,u.phonenumber,u.remark,d.dept_name,p.post_name
+        from sys_user u
+        join sys_dept d on u.dept_id=d.dept_id
+        join sys_user_post up on u.user_id=up.user_id
+        join sys_post p on up.post_id=p.post_id
+        <foreach collection="ids" item="item" open="where u.user_id in(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+</mapper>

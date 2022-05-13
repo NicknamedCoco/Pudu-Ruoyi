@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysRegistrationMapper">
+    <insert id="addRegistration" useGeneratedKeys="true" parameterType="SysRegistration" keyProperty="id">
+        insert into sys_registration(
+        <if test="id != null and id != 0">id,</if>
+        <if test="number != null and number != ''">number,</if>
+        <if test="doctorId != null and doctorId != 0">doctor_id,</if>
+        <if test="patientsId != null and patientsId != 0">patients_id,</if>
+        <if test="amountPayable != null and amountPayable != 0">amount_payable,</if>
+        <if test="level != null and level != ''">level</if>
+        )values(
+        <if test="id != null and id != 0">#{id},</if>
+        <if test="number != null and number != ''">#{number},</if>
+        <if test="doctorId != null and doctorId != 0">#{doctorId},</if>
+        <if test="patientsId != null and patientsId != 0">#{patientsId},</if>
+        <if test="amountPayable != null and amountPayable != 0">#{amountPayable},</if>
+        <if test="level != null and level != ''">#{level}</if>
+        )
+    </insert>
+
+    <update id="updateById" parameterType="SysRegistration">
+        update sys_registration set invoice_code = #{invoiceCode},
+        invoice_number=#{invoiceNumber}, invoice_date=#{invoiceDate},is_invoice=#{isInvoice}
+        where id=#{id}
+    </update>
+
+
+    <select id="getList" resultType="com.ruoyi.system.domain.SysRegistration">
+        SELECT r.id, r.number,r.`amount_payable` as amountPayable,
+        r.`type`,r.`level`,r.`create_time` as createTime,d.nick_name as doctorName,r.`status`,
+        r.evaluate,r.accept,r.is_invoice as isInvoice
+        FROM sys_registration AS r
+        JOIN sys_user d ON r.`doctor_id`=d.`user_id`
+        <where>
+            r.patients_id=#{patientId}
+            <if test="number != null and number != ''">
+                and r.number like concat('%',#{number,jdbcType=VARCHAR},'%')
+            </if>
+        </where>
+        ORDER BY r.status ASC, r.create_time DESC
+    </select>
+
+
+    <resultMap id="registration" type="com.ruoyi.system.domain.SysRegistration">
+        <id property="id" column="id"></id>
+        <result property="number" column="number"></result>
+        <result property="time" column="time"></result>
+        <result property="createTime" column="create_time"></result>
+        <result property="doctorId" column="doctor_id"></result>
+        <result property="patientsId" column="patients_id"></result>
+        <result property="status" column="status"></result>
+        <result property="evaluate" column="evaluate"></result>
+        <result property="accept" column="accept"></result>
+        <result property="amountPayable" column="amount_payable"></result>
+        <result property="type" column="type"></result>
+        <result property="level" column="level"></result>
+        <result property="isInvoice" column="is_invoice"></result>
+        <result property="invoiceCode" column="invoice_code"></result>
+        <result property="invoiceNumber" column="invoice_number"></result>
+        <result property="invoiceDate" column="invoice_date"></result>
+    </resultMap>
+
+    <select id="getById" resultMap="registration">
+        select * from sys_registration where id=#{id}
+    </select>
+</mapper>

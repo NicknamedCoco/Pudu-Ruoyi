@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="world.keyi.mapper.NoticeMapper">
+
+    <resultMap id="sys_notice" type="Notice">
+        <id property="id" column="notice_id"></id>
+        <result property="title" column="notice_title"/>
+        <result property="text" column="notice_content"/>
+        <result property="time" column="create_time" javaType="Date" jdbcType="DATE"/>
+        <result property="url" column="image_url"/>
+        <result property="createBy" column="create_by"/>
+    </resultMap>
+
+    <select id="getNoticeList" resultType="world.keyi.domain.Notice" resultMap="sys_notice" parameterType="String">
+        select notice_id,notice_title,notice_content,create_by,create_time,image_url from sys_notice where notice_type=${type}
+    </select>
+</mapper>
