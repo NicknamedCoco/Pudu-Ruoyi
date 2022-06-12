@@ -3,6 +3,16 @@
 本项目改造若依微服务项目，增加了个前台展示模块
 
 项目截图已放在projectImages目录中
+部分截图如下：
+
+- 首页
+  <img src="https://github.com/NicknamedCoco/Pudu-Ruoyi/raw/master/projectImages/1.png" style="zoom:33%;" />
+- 健康科普页面
+  ![](https://github.com/NicknamedCoco/Pudu-Ruoyi/raw/master/projectImages/6.png)
+- 药品查询页面
+  ![](https://github.com/NicknamedCoco/Pudu-Ruoyi/raw/master/projectImages/7.png)
+- 后台主页
+  ![](https://github.com/NicknamedCoco/Pudu-Ruoyi/raw/master/projectImages/9.png)
 
 本项目已通过docker部署到服务器中，[普渡健康平台](http://pudu.keyi.world)(需VPN访问)
 
